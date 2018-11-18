@@ -1,0 +1,11 @@
+-- Drop table
+
+-- DROP TABLE public.openaddr
+
+CREATE TABLE public.openaddr (
+	city varchar(64) NULL,
+	postcode int4 NULL,
+	street varchar(64) NULL,
+	"number" varchar(32) NULL
+);
+
