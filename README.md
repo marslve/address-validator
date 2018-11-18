@@ -32,7 +32,7 @@ Der gesamte Workflow mit dem Job *0_main_job.kjb* gestartet, der aus vier weiter
 * Die zweite Transformation (**4_hive_to_postgres**) besteht aus einem Table Input und Output. Beim Input werden die Tabellendaten vom Hiveserver geholt und mithilfe des Outputs in die PostgreSQL-Tabelle *openaddr* übertragen.
 
 ## Installation
-* PostgreSQL inkl. PHP-Erweiterung muss für das Frontend installiert sein und eine Datenbank *main* angelegt sein (alles weitere geschieht automatisiert, daher keine DDLs nötig!)
+* PostgreSQL inkl. PHP-Erweiterung muss für das Frontend installiert sein und eine Datenbank *main* angelegt sein (alles weitere geschieht automatisiert, daher **keine DDLs nötig!**)
 * Das kleine Java-Tool GenerateImportToHDFS muss unter /home/hadoop abgelegt werden (erstellt automatisch ein Import-Shellskript aller csv-Dateien in das HDFS)
 * Frontend aus */var/www/html/index.php* in das entsprechende Apache-Verzeichnis legen
 * Main-job des Workflows */home/hadoop/etl_workflow/0_main_job.kjb* starten
