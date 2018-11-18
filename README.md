@@ -13,7 +13,7 @@ Der gesamte Workflow mit dem Job *0_main_job.kjb* gestartet, der aus vier weiter
 * Zunächst werden alle mit find gefunden csv-Dateipfade in die Textdatei openaddresses_csv_files.txt gespeichert.
 * Nun wird das Java-Tool *GenerateImportToHDFS* aufgerufen, das für jede csv-Datei einen *hadoop fs -put* Befehl generiert und außerdem die benötigten Verzeichnisse mit *hadoop fs -mkdir* erstellt, sodass die Dateien getrennt nach Land (z.B. "de") abgelegt werden.
 * Haben die Verzeichnisse der Länder Unterverzeichnisse, so werden diese aufgelöst und in den Dateinamen integriert, sodass in jedem Verzeichnis ausschließlich Dateien liegen.
-* Außerdem wird das Verzeichnis "summary" ausgeschlossen, da hier keine verwertbaren Adressdaten abliegen.
+* Außerdem wird das Verzeichnis *summary* ausgeschlossen, da hier keine verwertbaren Adressdaten abliegen.
 * So wird das Shellscript importToHDFS.sh generiert, ausführbar gemacht und schließlich ausgeführt.
 * Die csv-Dateien liegen nun im HDFS unter */user/hadoop/openaddresses/raw*.
 
