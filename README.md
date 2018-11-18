@@ -21,7 +21,14 @@ Der gesamte Workflow mit dem Job 0_main_job.kjb gestartet, der aus vier weiteren
 * Zunächst wird eine Transformation (3_create_tables) mit einem SQL-script ausgeführt.
 * Dieses erstellt zum einen die external Tabelle openaddr_raw, das alle (auch irrelevante) Spalten der csv-Dateien beinhaltet. Eine Quelle für diese Tabelle wird aber noch nicht eingefügt, also ist sie zunächst leer.
 * Außerdem wird die Tabelle openaddr_part erstellt, die nur die 4 relevanten Spalten street, number, postcode und city beinhaltet. Sie wird mit dem Feld country partitioniert und als orc file im final-Verzeichnis gespeichert.
-* Danach wird für jedes der 21 Länder eine Transformation (3_part_n_clean) ausgeführt.
+* Danach wird für jedes der 21 Länder eine Transformation (3_part_n_clean) ausgeführt, welche den entsprechenden Ländercode über den Parameter country erhält (z.B. "de").
+* Hierbei wird ein SQL-Script ausgeführt, dass der Tabelle openaddr_raw die richtige LOCATION der Daten zuweist, sodass sie immer nur die Rohdaten eines einzigen Landes beinhaltet. Die Daten der relevanten Spalten werden an die partitionierte Tabelle openaddr_part übertragen, wobei doppelte Einträge und Einträge mit leeren Feldern aussortiert werden.
+* Wurden die Transformationen für jedes Land ausgeführt, so liegen die partionierten, gecleanten Daten im final-Verzeichnis.
+
+### 4_hive_to_postgres
+* Hier werden die final-Daten aus dem HDFS in das end-user DMBS (PostgreSQL) übertragen.
+* Die erste Tranformation (4_create_postgresql_table) führt ein SQL-Skript aus, die die benötigte Tabelle in der PostgreSQL-Datenbank erstellt.
+* Die zweite Transformation (4_hive_to_postgres) besteht aus einem Table Input und Output. Beim Input werden die Tabellendaten vom Hiveserver geholt und mithilfe des Outputs in die PostgreSQL-Tabelle "openaddr" übertragen.
 
 ## Installation
 * PostgreSQL inkl. PHP-Erweiterung muss für das Frontend installiert sein und eine Datenbank main angelegt sein (alles weitere geschieht automatisiert)
